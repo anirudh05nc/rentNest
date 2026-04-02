@@ -11,7 +11,7 @@ service cloud.firestore {
     // Properties collection
     match /properties/{propertyId} {
       allow read: if true;
-      allow create: if request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'owner';
+      allow create: if request.auth != null;
       allow update, delete: if request.auth != null && resource.data.ownerId == request.auth.uid;
     }
     

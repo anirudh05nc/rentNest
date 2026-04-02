@@ -3,7 +3,7 @@ import {
   addDoc, 
   query, 
   where, 
-  orderBy, 
+  or,
   onSnapshot,
   serverTimestamp,
   doc,
@@ -27,19 +27,22 @@ export const sendMessage = async (senderId, senderName, receiverId, propertyId, 
 };
 
 export const subscribeToMessages = (userId, callback) => {
-  // Query messages where user is either sender or receiver
-  // Note: Firestore doesn't support OR queries across different fields easily without composite indexes or separate queries
-  // For simplicity in this MVP, we'll query messages where the user is involved
   const q = query(
     collection(db, MESSAGES_COLLECTION),
-    orderBy("timestamp", "asc")
+    or(
+      where("senderId", "==", userId),
+      where("receiverId", "==", userId)
+    )
   );
 
   return onSnapshot(q, (snapshot) => {
     const allMessages = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    // Filter client-side for involvement
-    const userMessages = allMessages.filter(m => m.senderId === userId || m.receiverId === userId);
-    callback(userMessages);
+    allMessages.sort((a, b) => {
+      const timeA = a.timestamp?.toMillis() || Date.now();
+      const timeB = b.timestamp?.toMillis() || Date.now();
+      return timeA - timeB;
+    });
+    callback(allMessages);
   });
 };
 

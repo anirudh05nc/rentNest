@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { subscribeToMessages, sendMessage, getConversations } from '../services/messageService';
-import { Send, User, Home, ArrowLeft } from 'lucide-react';
+import { Send, User, Home, ArrowLeft, MessageSquare } from 'lucide-react';
 
 const Chat = () => {
   const { currentUser } = useAuth();

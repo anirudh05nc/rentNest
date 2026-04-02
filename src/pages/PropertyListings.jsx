@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getProperties } from '../services/propertyService';
-import { Search, MapPin, DollarSign, Maximize, Filter } from 'lucide-react';
+import { Search, MapPin, DollarSign, Maximize, Filter, Home } from 'lucide-react';
 
 const PropertyListings = () => {
   const [properties, setProperties] = useState([]);

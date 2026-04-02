@@ -43,7 +43,7 @@ const AddProperty = () => {
         area: parseFloat(data.area),
       });
 
-      navigate('/owner-dashboard');
+      navigate('/my-properties');
     } catch (err) {
       setError('Failed to add property');
       console.error(err);

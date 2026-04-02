@@ -11,16 +11,44 @@ import {
   orderBy,
   serverTimestamp 
 } from "firebase/firestore";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { db, storage } from "../firebase/config";
+import { db } from "../firebase/config";
 
 const PROPERTIES_COLLECTION = "properties";
 
+const compressImageBase64 = (file) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (event) => {
+      const img = new Image();
+      img.src = event.target.result;
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const MAX_WIDTH = 800; // Aggressive down-scaling for Firestore limits
+        let width = img.width;
+        let height = img.height;
+        if (width > MAX_WIDTH) {
+          height = Math.round((height * MAX_WIDTH) / width);
+          width = MAX_WIDTH;
+        }
+        canvas.width = width;
+        canvas.height = height;
+
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.6);
+        resolve(dataUrl);
+      };
+      img.onerror = (err) => reject(err);
+    };
+    reader.onerror = (err) => reject(err);
+  });
+};
+
 export const uploadImages = async (files) => {
   const uploadPromises = files.map(async (file) => {
-    const storageRef = ref(storage, `properties/${Date.now()}_${file.name}`);
-    await uploadBytes(storageRef, file);
-    return getDownloadURL(storageRef);
+    return await compressImageBase64(file);
   });
   return Promise.all(uploadPromises);
 };

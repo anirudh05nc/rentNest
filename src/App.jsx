@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import Layout from './components/Layout';
@@ -25,8 +25,8 @@ function App() {
                 <h1 className="text-6xl font-extrabold text-gray-900 mb-6 leading-tight">Find Your <span className="text-primary-600">Dream Nest</span></h1>
                 <p className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">Discover premium rentals designed for modern living. Your journey to a better home starts here.</p>
                 <div className="flex flex-col sm:flex-row justify-center gap-4">
-                  <a href="/properties" className="bg-primary-600 text-white px-10 py-4 rounded-xl font-bold hover:bg-primary-700 transition shadow-lg shadow-primary-200 text-lg">Browse Properties</a>
-                  <a href="/register" className="bg-white text-gray-900 border-2 border-gray-100 px-10 py-4 rounded-xl font-bold hover:bg-gray-50 transition text-lg">List Your Property</a>
+                  <Link to="/properties" className="bg-primary-600 text-white px-10 py-4 rounded-xl font-bold hover:bg-primary-700 transition shadow-lg shadow-primary-200 text-lg">Browse Properties</Link>
+                  <Link to="/add-property" className="bg-white text-gray-900 border-2 border-gray-100 px-10 py-4 rounded-xl font-bold hover:bg-gray-50 transition text-lg">List Your Property</Link>
                 </div>
                 
                 <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8 text-left">

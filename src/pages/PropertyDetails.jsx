@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getPropertyById } from '../services/propertyService';
 import { useAuth } from '../context/AuthContext';
-import { MapPin, DollarSign, Maximize, User, Send, ChevronLeft, ChevronRight, CheckCircle2 } from 'lucide-react';
+import { MapPin, DollarSign, Maximize, User, Send, ChevronLeft, ChevronRight, CheckCircle2, Home, Loader2 } from 'lucide-react';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { db } from '../firebase/config';
 
@@ -70,7 +70,7 @@ const PropertyDetails = () => {
   if (!property) return <div className="text-center py-20"><h2 className="text-2xl font-bold">Property not found</h2></div>;
 
   return (
-    <div className="py-8">
+    <div className="py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       {/* Image Gallery */}
       <div className="relative rounded-2xl overflow-hidden bg-gray-100 mb-8 aspect-video md:aspect-[21/9]">
         <img 

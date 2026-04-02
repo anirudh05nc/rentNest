@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { getProperties, deleteProperty } from '../services/propertyService';
-import { Plus, Edit, Trash2, MapPin, DollarSign } from 'lucide-react';
+import { Plus, Edit, Trash2, MapPin, DollarSign, Home } from 'lucide-react';
 
 const OwnerDashboard = () => {
   const { currentUser } = useAuth();

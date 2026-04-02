@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { getProperties } from '../services/propertyService';
 import { Link } from 'react-router-dom';
-import { Search, MapPin, DollarSign, ChevronRight } from 'lucide-react';
+import { Search, MapPin, DollarSign, ChevronRight, PlusCircle } from 'lucide-react';
 
 const TenantDashboard = () => {
   const { userData } = useAuth();
@@ -29,13 +29,20 @@ const TenantDashboard = () => {
         <div className="relative z-10">
           <h1 className="text-4xl font-extrabold text-gray-900 mb-2">Welcome back, {userData?.name}!</h1>
           <p className="text-gray-600">Ready to find your next dream home?</p>
-          <div className="mt-8">
+          <div className="mt-8 flex flex-col sm:flex-row gap-4">
             <Link 
               to="/properties" 
               className="inline-flex items-center gap-2 bg-primary-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-primary-700 transition shadow-lg shadow-primary-200"
             >
               <Search size={20} />
-              <span>Explore All Listings</span>
+              <span>Search Rentals</span>
+            </Link>
+            <Link 
+              to="/add-property" 
+              className="inline-flex items-center gap-2 bg-white text-gray-900 border-2 border-gray-100 px-6 py-3 rounded-xl font-bold hover:bg-gray-50 transition shadow-sm"
+            >
+              <PlusCircle size={20} />
+              <span>Post Your Property</span>
             </Link>
           </div>
         </div>
